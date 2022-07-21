@@ -1,0 +1,1 @@
+typescript勉強用
