@@ -107,3 +107,71 @@ const data:number[] = [ 99, 100, 80]
 ```
 このときは、`data[0]="panda"` と書くととエラーになる
 
+
+変更不可の配列の定義
+```
+const animals:readonly string[] = ['パンダ', 'アリクイ']
+```
+* readonlyキーワードを使う
+* この時、`animals[1] =  'ワオキツネザル'` はエラーになるよ
+* 絶対に慣れない書き方だな...
+
+### forで配列をまわす
+```
+const scores = [100, 99, 89, 97]
+let total = 0
+for (let score of scores){
+    total += score
+}
+const avarage = total / scores.length
+console.log('合計:' + total)
+console.log('平均:' + avarage)
+```
+
+### 配列の要素の操作
+```
+const data:any = [11,12,13]
+//先頭に追加
+data.unshift('UNSHIFT')
+console.log(data)  //["UNSHIFT", 11, 12, 13] 
+
+// 配列の最後に追加
+data.push('PUSH')
+console.log(data) //["UNSHIFT", 11, 12, 13,"PUSH"] 
+
+//先頭の要素を削除
+data.shift()
+console.log(data) //[11, 12, 13,"PUSH"] 
+```
+
+余談
+
+1つ目で、`console.log(data.unshift('UNSHIFT'))`を実行すれば` ["UNSHIFT", 11, 12, 13]` が返ってくると思ったのだが、結果は 数値の `4` がreturn された。マニュアル見たら、
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift
+> 返値
+> メソッドを呼び出した後のオブジェクトの新しい length プロパティの値です。
+
+とのこと
+
+### タプル
+```
+var me:[string,number]
+me = ['バキ', 99]
+console.log(me[0]) //バキ
+me = ['モトベ', 10] 
+me = ['カツミ', 'シンシンカイ'] //これはエラー
+```
+
+### enum
+```
+enum bloodtype { A, B, AB, O}
+console.log(bloodtype.B) // 1
+```
+* どういうふうに使われるのか、まだわかない
+* "A" や 'A' と言ったふうに囲まないのが正解
+*  「enum型を定義する」のではなくて、「複数の値から一つ選ぶ方式の新しい型」を定義してるんだそうな
+* ↑これもしっくりきてない
+
+## 2-4 型をさらにきわめる
+
+
