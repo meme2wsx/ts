@@ -174,4 +174,38 @@ console.log(bloodtype.B) // 1
 
 ## 2-4 型をさらにきわめる
 
+### 型エイリアス
+
+```
+let data:[string, number]
+```
+これはタプル。 ↑これだと、値に何を期待してるのか分からないので、明確にしておきたければ型エイリアスを使う
+```
+type name = string
+type power = number
+type person = [name, power]
+const baki:person = ['バキ', 99]
+const yujiro:person = ['ユウジロウ', 100]
+const data:person[] = [baki, yujiro]
+
+for (let i of data){
+    console.log(i)
+}
+```
+* nameやpowerは新しい型...ではなくて、stringやnumberの別名（エイリアス）
+* `type person = [name, power]`  の `[name, power]`はタプルだよ。配列じゃないよ。値だったら配列だけどね
+* で、作ったタプルぬ、personという別名をさずけているんだね
+
+
+### 必須ではない場合は "?"
+```
+type name = string
+type power = number
+type hobby = string
+type person = [name, power, hobby?] //hobbyがオプションだよ
+const baki:person = ['バキ', 99] //エラーにならない
+const yujiro:person = ['ユウジロウ', 100,'味噌汁']
+```
+
+
 
