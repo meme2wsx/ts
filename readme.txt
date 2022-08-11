@@ -1,1 +1,1 @@
-typescript勉強用
+typescript勉強用だ

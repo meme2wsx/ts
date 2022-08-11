@@ -204,8 +204,6 @@ type power = number
 type hobby = string
 type person = [name, power, hobby?] //hobbyがオプションだよ
 const baki:person = ['バキ', 99] //エラーにならない
-const yujiro:person = ['ユウジロウ', 100,'味噌汁']
+const yujiro:person = ['ユウジロウ', 100,'豆腐の味噌汁作り']
 ```
-
-
 
