@@ -33,45 +33,36 @@ console.log(h1 instanceof Enemy) // False
 
 # 継承
 ```
-// Heroクラス
 class Hero {
     name: string
-    lebel: number
+    revel: number
 
-    //コンストラクター
-    constructor(name: string = '名無し', lebel: number = 1) {
+    constructor(name: string = "名無しの勇者", revel: number = 1) {
         this.name = name
-        this.lebel = lebel
-
+        this.revel = revel
     }
+
     print(): void {
-        console.log(this.name + ' レベル: ' + this.lebel)
+        console.log(this.name + "(レベル: " + this.revel + ")")
     }
 }
 
-// enumでSwordクラスを作成
-enum Sword {
-    takenoko = 'タケノコソード',
-    fire = 'ほのおのつるぎ',
-    bokuto = '木刀'
-}
 
-// SuperHeroクラスの定義
+enum sword { fire = "炎のつるぎ", take = "タケノコのつるぎ", boku = "木刀" }
+
 class SuperHero extends Hero {
-    sword: Sword
+    sword: sword
 
-    constructor(name: string, lebel: number, s: Sword) {
-        super(name, lebel)
+     // nameとrevelを?にすることで、
+     // nameとrebelは引数がなければ親(super)クラスのデフォルト値が代入される
+    constructor(s: sword, name?: string, revel?: number) {
+        super(name, revel)
         this.sword = s
     }
-    print(): void {
-        console.log(this.name + ' レベル: ' + this.lebel + ' 武器: ' + this.sword)
-    }
 }
 
-const h2 = new SuperHero("みゆき", 999, Sword.bokuto)
-h2.print()
-// [LOG]: "みゆき レベル: 999 武器: 木刀" 
+let h1 = new SuperHero(sword.fire)
+h1.print()
 ```
 
 # アクセス修飾子
