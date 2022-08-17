@@ -135,3 +135,40 @@ for (let creature of data) {
 *  interfaceをimplementsしたクラスは値と実装が義務付けられる
 * たとえば、Monsterがprint()をオーバーライドしない場合は、コンパイルエラーに
 
+
+# 抽象クラス
+```
+interface Creature {
+    type: string
+    print(): void
+}
+
+// 村人
+class Murabito implements Creature {
+    type: string = '村人'
+    print(): void {
+        console.log(this.type)
+    }
+}
+
+// モンスター
+abstract class Monster implements Creature {
+    type: string = 'モンスター'
+    abstract attack(): void
+    abstract print(): void
+}
+
+class Slime implements Monster {
+    type: string = "スライム"
+    print(): void {
+        console.log("私は" + this.type + "です")
+    }
+    attack(): void {
+        console.log(this.type + "の攻撃！")
+    }
+}
+
+const s = new Slime()
+s.print()
+s.attack()
+```
