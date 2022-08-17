@@ -98,3 +98,40 @@ console.log(a.getsetX)//OK. cat が表示される
 ```
 * getsetXのあとに、()は不要
 * gettterもsetterも同じ名前（`getsetX`) を用いることが可能
+
+# インターフェース
+```
+interface Creature {
+    type: string
+    print(): void
+}
+
+// 村人
+class Murabito implements Creature {
+    type: string = '村人'
+    print(): void {
+        console.log(this.type)
+    }
+}
+
+// モンスター
+class Monster implements Creature {
+    type: string = "モンスター"
+    print(): void {
+        console.log(this.type)
+    }
+}
+
+let mura1 = new Murabito()
+let mon1 = new Monster()
+
+let data:Creature[] = [mura1, mon1]
+
+for (let creature of data) {
+    creature.print()
+}
+```
+* プロパティやメソッドの定義はできるが、具体的な値や実装は書かない
+*  interfaceをimplementsしたクラスは値と実装が義務付けられる
+* たとえば、Monsterがprint()をオーバーライドしない場合は、コンパイルエラーに
+
