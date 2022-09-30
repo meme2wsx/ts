@@ -22,33 +22,31 @@ yabai = "文字列です" //エラーになっってくれない
 
 ### 型変換
 ```
-var a  = 10
-var b = "20"
-a += +b
-console.log('私は、今月に入ってから' + a + '本のとうもろこしを食べました')
+let x  = 10
+let y = "20"
+console.log(x + y) // "1020"
+console.log(x + +y) // 30
 ```
-* `+b` で文字列型からnumber型に変換している
+* `+y` で文字列型からnumber型に変換している
 
 ## 2-2. 制御構文
 
 ### if文
 ```
-const num = 3
-const result = num %2
-if (result === 0) {
-    console.log(num + "は偶数である")
-}
-else {
-    console.log(num + "は奇数である")
+let n = 4
+let r = n % 2
+if (r === 0) {
+    console.log("偶数")
+} else {
+    console.log("奇数")
 }
 ```
-* 何の変哲もないif文。
 * 三項演算子で上と同じことを実現できる↓
 ```
-var num = 3
-var result
-result = num % 2 ===0 ? '偶数' : '奇数'
-console.log(num + 'は' + result + 'である')
+let n = 3
+let r
+r = n % 2 === 0 ? '偶数' : '奇数'
+console.log(r)
 ```
 
 ### switch文
@@ -66,14 +64,15 @@ switch( cursor ) {
 
 ### while文
 ```
-const max = 10
+let max = 10
 let total = 0
 let i = 1
-while (i <= max){
+
+while (i <= max) {
     total += i
     i++
 }
-console.log( max +"までの合計: " + total )
+console.log("1から" + max + "まで足し算していった結果は、" + total + "です。")
 ```
 
 ### for文
@@ -93,12 +92,11 @@ for in や for ofは後述
 
 ### 配列
 ```
-const data = [ 99, 100, "panda"]
-for (let d of data){
- console.log(d)  
-}
-data[0] = " panda" //エラーにならない（怖）
-console.log(data[0])
+let data = [1,2,3, "panda"]
+data[0] = "panda" //これはエラーにならない！
+
+let data2 = [1,2,3]
+data2[0] = "panda" //これはエラー
 ```
 
 配列に型を定義
@@ -108,69 +106,84 @@ const data:number[] = [ 99, 100, 80]
 このときは、`data[0]="panda"` と書くととエラーになる
 
 
-変更不可の配列の定義
+const で配列を定義しても、要素を取り替えることはできてしまう
 ```
-const animals:readonly string[] = ['パンダ', 'アリクイ']
+const data:number[] = [ 99, 100, 80] 
+data[0] = 3
 ```
-* readonlyキーワードを使う
-* この時、`animals[1] =  'ワオキツネザル'` はエラーになるよ
-* 絶対に慣れない書き方だな...
+変更不可の配列の定義をしたい場合は、readonlyキーワードで
+```
+const data:readonly number[] = [ 99, 100, 80] 
+data[0] = 3 //エラーになる
+```
 
 ### forで配列をまわす
 ```
-const scores = [100, 99, 89, 97]
-let total = 0
-for (let score of scores){
-    total += score
+const scores: number[] = [99, 98, 100]
+let t = 0
+for (let s of scores) {
+    t += s
 }
-const avarage = total / scores.length
-console.log('合計:' + total)
-console.log('平均:' + avarage)
+console.log("合計: " + t)
+console.log("平均: " + t / scores.length)
 ```
 
 ### 配列の要素の操作
 ```
-const data:any = [11,12,13]
 //先頭に追加
-data.unshift('UNSHIFT')
-console.log(data)  //["UNSHIFT", 11, 12, 13] 
+let data: number[] = [1, 2, 3, 4, 5]
+data.unshift(0)
+console.log(data)
 
-// 配列の最後に追加
-data.push('PUSH')
-console.log(data) //["UNSHIFT", 11, 12, 13,"PUSH"] 
+//末尾に追加
+data.push(6)
+console.log(data) // [0, 1, 2, 3, 4, 5, 6] 
 
 //先頭の要素を削除
 data.shift()
-console.log(data) //[11, 12, 13,"PUSH"] 
+console.log(data) //[1, 2, 3, 4, 5, 6] 
 ```
-
-余談
-
-1つ目で、`console.log(data.unshift('UNSHIFT'))`を実行すれば` ["UNSHIFT", 11, 12, 13]` が返ってくると思ったのだが、結果は 数値の `4` がreturn された。マニュアル見たら、
-https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/unshift
-> 返値
-> メソッドを呼び出した後のオブジェクトの新しい length プロパティの値です。
-
-とのこと
 
 ### タプル
 ```
-var me:[string,number]
-me = ['バキ', 99]
-console.log(me[0]) //バキ
-me = ['モトベ', 10] 
-me = ['カツミ', 'シンシンカイ'] //これはエラー
+let p:[string, number]
+p = ['A', 43]
+p = ['AB', 55]
+p = ['AB', '44'] //これはエラーになる
 ```
 
 ### enum
+その1
 ```
-enum bloodtype { A, B, AB, O}
-console.log(bloodtype.B) // 1
+enum c1 {r,l}
+console.log(c1.r)
+console.log(c1)
 ```
-* どういうふうに使われるのか、まだわかない
-* "A" や 'A' と言ったふうに囲まないのが正解
-*  「enum型を定義する」のではなくて、「複数の値から一つ選ぶ方式の新しい型」を定義してるんだそうな
-* ↑これもしっくりきてない
+結果：
+```
+[LOG]: 0 
+[LOG]: {
+  "0": "r",
+  "1": "l",
+  "r": 0,
+  "l": 1
+} 
+```
+その2
+```
+enum c1 {r = "右",l = "左"}
+console.log(c1.r)
+console.log(c1)
+```
+
+結果:
+```
+[LOG]: "右" 
+[LOG]: {
+  "r": "右",
+  "l": "左"
+} 
+```
 
 ## 2-4 型をさらにきわめる
 
@@ -181,23 +194,43 @@ let data:[string, number]
 ```
 これはタプル。 ↑これだと、値に何を期待してるのか分からないので、明確にしておきたければ型エイリアスを使う
 ```
+// 型エイリアス定義
 type name = string
-type power = number
-type person = [name, power]
-const baki:person = ['バキ', 99]
-const yujiro:person = ['ユウジロウ', 100]
-const data:person[] = [baki, yujiro]
+type blood = string
+type age = number
+type person = [name, blood, age]
 
-for (let i of data){
-    console.log(i)
-}
+let user1:person = ['user1', 'AB', 23]
+let user2:person = ['user2', 'B', 14]
+let user3:person = ['user3', 14, 'O'] //エラー
 ```
-* nameやpowerは新しい型...ではなくて、stringやnumberの別名（エイリアス）
-* `type person = [name, power]`  の `[name, power]`はタプルだよ。配列じゃないよ。値だったら配列だけどね
-* で、作ったタプルぬ、personという別名をさずけているんだね
+```
+// person型でまとめた配列を作る（難しい！）
+let data:person[] = [user1, user2]
+```
+さらに、user3 タプルを作って、data配列にpush
+```
+let user3:person = ['user3', 'O', 43]
+data.push(user3)
+```
+↓これは成功する、という例
+```
+let user4:[string, string,number]
+user4 = ['a', 'b', 999]
+data.push(user4)
+```
+ここでは、user4の型定義はpersonではないが、dataにpushできる
 
+↓ もちろんこのuser5はエラーになる
+```
+let user5 : [string]
+user5 = ['a']
+data.push(user5) // not assignable to parameter of type 'person'.
+```
 
-### 必須ではない場合は "?"
+* 新しい型を定義したわけではなく、別名（エイリアス）を定義しただけだから、元の型とあっていれば、代入できるのでしょう。
+
+### 必須ではない　： "?"
 ```
 type name = string
 type power = number
@@ -207,3 +240,54 @@ const baki:person = ['バキ', 99] //エラーにならない
 const yujiro:person = ['ユウジロウ', 100,'豆腐の味噌汁作り']
 ```
 
+
+## 2-4 のまとめ
+```
+// enum
+enum bloodtype {
+    a = "A", b = "B", o = "O", ab = "AB", unknow = "血液型不明"
+}
+
+// 型エイリアス
+type name = string
+type age = number
+type person = [name, bloodtype, age?]
+
+// person型の userXを作る
+let user1: person = ['user1', bloodtype.a, 34]
+let user2: person = ['user2', bloodtype.unknow, 94]
+
+// personを要素とする配列
+let person_arr: person[]
+
+person_arr = [user1, user2]
+for (let p of person_arr) {
+    console.log(p)
+}
+```
+別解（？）
+```
+// enum
+enum bloodtype {
+    a = "A", b = "B", o = "O", ab = "AB", unknow = "血液型不明"
+}
+
+// 型エイリアス
+type name = string
+type age = number
+
+
+// タプル
+let person : [name, bloodtype, age?]
+
+person = ['user1', bloodtype.a, 34]
+
+//配列
+let data = [person]
+
+//新しい要素を追加する
+person = ['user2', bloodtype.b]
+data.push(person)
+
+console.log(data)
+```
