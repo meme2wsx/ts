@@ -99,12 +99,19 @@ let data2 = [1,2,3]
 data2[0] = "panda" //これはエラー
 ```
 
+配列の宣言と代入を別々にやるパターン
+```
+let data:number[] = new Array()
+data.push(113)
+data.push(241)
+console.log(data)
+```
+
 配列に型を定義
 ```
 const data:number[] = [ 99, 100, 80] 
 ```
 このときは、`data[0]="panda"` と書くととエラーになる
-
 
 const で配列を定義しても、要素を取り替えることはできてしまう
 ```
