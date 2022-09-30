@@ -1,5 +1,4 @@
 # 関数
-
 ```
 function hello (name:string) :void{
     console.log("hello, " + name + 'さん。')
@@ -9,64 +8,77 @@ hello("ぱんだ")
 
 ##  戻り値あり
 ```
-function jijou(n:number) :number {
-    return n * n
+function tasu(data: number[]): number {
+    let total = 0
+    for (let i = 0; i < data.length; i++) {
+        total += data[i]
+    }
+    return total
 }
-console.log(jijou(11)) //121
+
+let data: number[] = [1, 2, 3]
+console.log(tasu(data))
 ```
 
 ## letのスコープは { } 内
+num 変数に注目してね
 ```
-let num = "11111"
-function total(max:number):void {
-    let num = 0
-    for (let i = 1; i <= max; i++){
-        num += i
-    }
+let num = 99 //関数の外側で定義
+function printnum (){
+    const num = "function_number" //関数内で定義
     console.log(num)
 }
-console.log(num) //"11111"
-total(10) //55
- ```
-
+console.log(num) //99
+printnum() //"function_number"
+```
 ## 複数の値をreturnする
-
 配列としてまとめて返すことができる
 ```
-function hoge(){
-return [1, "ok", true]
+function getArr1(): number[] {
+    return [1, 2, 3]
 }
-console.log(hoge()) //[1, "ok", true] 
+let x1 = getArr1()
+console.log(x1)
 ```
-* これだと戻り値型を指定していない（なお、エラーにはならない(!) ）
-* が、それだと不安である。なので...
-
-タプルで戻り値を定義して配列を返す例
+### 戻り値に複数の型がある場合
 ```
-function f():[number, string] {
-    return [1, "1"]
+function getArr2(): [number, string] {
+    return [1, "2"]
 }
-let [x, y] = f() //分割代入
-console.log(x)
-console.log(y)
+let x2 = getArr2()
+console.log(x2) //[1, "2"] 
 ```
-## 引数の条件型、オプション引数、初期値
+### 戻り値のタプルを分割代入する
 ```
-function printPerson(id:number|string, name:string = "名無し", age?:number):void {
-    console.log(id + ", " + name  + ", " +  age)
+let [a, b] = getArr2()
+console.log(a) //1
+console.log(b) //"2"
+```
+### 引数の条件型
+```
+function func1(id:number|string){
+    console.log(id)
 }
-
-printPerson('A123', 'バキ', 15)
-printPerson('abc')
-printPerson(123, 'モトベ', 50)
+func1("A00121")
+func1(9999)
 ```
-実行結果:
+### 引数のオプション引数
 ```
-[LOG]: "A123, バキ, 15" 
-[LOG]: "abc, 名無し, undefined" 
-[LOG]: "123, モトベ, 50" 
+function func1(username:string,age?:number){
+    console.log(username + ',' + age)
+}
+func1("user1", 33) // "user1,33" 
+func1("user2" ) // "user2,undefined" 
 ```
-## 可変長引数
+#### 引数の初期値
+```
+function func1(age:number, username:string = "名無し"){
+    console.log(username + ',' + age)
+}
+func1(36, "user1") //"user1,36" 
+func1(61) // "名無し,61" 
+```
+### 引数の可変長引数
 引数の数が決まっていない場合とか
 ```
 const f = (...data:number[]): number => {
@@ -76,7 +88,6 @@ const f = (...data:number[]): number => {
     }
     return total
 }
-
 console.log(f(1,2,3))
 console.log(f(1,2,3,4,5,6,7,8,9,10))
 ```

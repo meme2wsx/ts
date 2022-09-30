@@ -151,7 +151,13 @@ p = ['A', 43]
 p = ['AB', 55]
 p = ['AB', '44'] //これはエラーになる
 ```
-
+### 分割代入
+```
+let [userName, bloodType, age] = ["user1", "A", 33]
+console.log(userName)
+console.log(bloodType)
+console.log(age)
+```
 ### enum
 その1
 ```
