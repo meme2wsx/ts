@@ -2,7 +2,7 @@
 ## 2-1. 値と変数
 ### 基本 
 ```
-var charaname:string
+let  charaname:string
 charaname = "ラスカル"
 let x:number
 x = 66.5
